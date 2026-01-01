@@ -3,20 +3,11 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import {Location} from "@/app/locations/types";
 
 // Define the shape of the actions the parent can call
 export interface MapHandle {
     flyTo: (lat: number, lng: number) => void;
-}
-
-interface Location {
-    id: number;
-    name: string;
-    lat: number;
-    lng: number;
-    address: string;
-    phone: string;
-    distance?: number;
 }
 
 interface MapProps {
@@ -72,7 +63,7 @@ const Map = forwardRef<MapHandle, MapProps>(({ locations }, ref) => {
                 iconSize: [24, 24]
             });
 
-            const marker = L.marker([branch.lat, branch.lng], { icon })
+            const marker = L.marker([branch.coordinates.lat, branch.coordinates.lng], { icon })
                 .addTo(mapInstance.current!)
                 .bindPopup(`<b>${branch.name}</b>`);
 

@@ -1,44 +1,7 @@
-"use client";
+import React from "react";
+import BookingModal from "@/components/BookingModal";
+import Reveal from "@/app/about/reveal";
 
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import BookingModal from "@/components/BookingModal"; // Adjust path if needed
-
-// --- REUSABLE ANIMATION COMPONENT ---
-// This replaces the old <script> logic for scroll animations
-const Reveal = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transform transition-all duration-1000 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
-
-// --- MAIN PAGE COMPONENT ---
 export default function AboutPage() {
   return (
     <div className="bg-white dark:bg-theme-black transition-colors duration-300">

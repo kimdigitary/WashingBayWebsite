@@ -1,51 +1,9 @@
-"use client";
-
-import React, { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+'use client'
+import React, {useEffect, useState} from "react";
+import {useSearchParams} from "next/navigation";
 import Link from "next/link";
-
-// --- REUSABLE COMPONENTS ---
-
-// 1. Toast Notification
-const Toast = ({ message, type, onClose }: { message: string, type: 'success' | 'error', onClose: () => void }) => {
-    useEffect(() => {
-        const timer = setTimeout(onClose, 4000);
-        return () => clearTimeout(timer);
-    }, [onClose]);
-
-    return (
-        <div className={`fixed top-24 right-6 z-[100] px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transform transition-all animate-slide-in ${
-            type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-        }`}>
-            <i className={`fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl`}></i>
-            <div>
-                <h4 className="font-bold text-sm uppercase tracking-wider">{type === 'success' ? 'Success' : 'Error'}</h4>
-                <p className="text-sm opacity-90">{message}</p>
-            </div>
-            <button onClick={onClose} className="ml-4 hover:opacity-75"><i className="fas fa-times"></i></button>
-        </div>
-    );
-};
-
-// 2. Animation Wrapper
-const Reveal = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) setIsVisible(true);
-        }, { threshold: 0.1 });
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, []);
-
-    return (
-        <div ref={ref} className={`transform transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"} ${className}`}>
-            {children}
-        </div>
-    );
-};
+import Toast from "@/app/booking/toast";
+import Reveal from "@/app/booking/reveal";
 
 // --- DATA ---
 const packages = [
@@ -54,8 +12,8 @@ const packages = [
     { id: "ceramic", name: "Ceramic Package", price: 299000, desc: "Paint correction + 1yr Ceramic Coating" }
 ];
 
-export default function BookingServer() {
-    const searchParams = useSearchParams();
+export default  function BookingServer() {
+    const searchParams = useSearchParams()
 
     // --- STATE ---
     const [step, setStep] = useState(1);
@@ -155,8 +113,6 @@ export default function BookingServer() {
 
     // --- RECEIPT DOWNLOAD LOGIC ---
     const downloadReceipt = () => {
-        // In a real app, use jsPDF or html2canvas.
-        // Here we simulate by triggering browser print on a specific clean view.
         window.print();
     };
 
