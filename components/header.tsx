@@ -59,7 +59,7 @@ export default function Header() {
           <i className="fas fa-shield-alt"></i>
         </div>
         <h1 className="font-display text-xl md:text-2xl font-extrabold tracking-tight text-theme-text">
-          DBS <span className="text-theme-red">PREMIER</span>
+          DBS <span className="text-theme-red">PREMIUM CAR WASH</span>
         </h1>
       </Link>
 
