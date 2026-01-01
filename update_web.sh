@@ -5,10 +5,10 @@ set -e
 # CONFIG
 # ----------------------------
 
-PROJECT_DIR=~/portal
+PROJECT_DIR=~/washingbay
 FRONTEND_DIR="$PROJECT_DIR/web"
-FRONTEND_REPO_URL="git@omoding:omodingmike/andrew-portal.git"
-SERVICE_NAME="portal"
+FRONTEND_REPO_URL="git@github.com:kimdigitary/WashingBayWebsite.git"
+SERVICE_NAME="next"
 
 echo "🚀 Starting frontend deployment..."
 
