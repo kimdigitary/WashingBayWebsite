@@ -25,14 +25,12 @@ export default function Contact() {
                 <div className="bg-gray-100 dark:bg-theme-accent p-1 rounded-full flex shadow-lg border border-gray-200 dark:border-white/10">
                     <button
                         onClick={() => setMobileTab("info")}
-                        className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${mobileTab === 'info' ? 'bg-white dark:bg-theme-surface text-theme-red shadow-md' : 'text-gray-500 dark:text-theme-muted'}`}
-                    >
+                        className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${mobileTab === 'info' ? 'bg-white dark:bg-theme-surface text-theme-red shadow-md' : 'text-gray-500 dark:text-theme-muted'}`}>
                         Info
                     </button>
                     <button
                         onClick={() => setMobileTab("form")}
-                        className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${mobileTab === 'form' ? 'bg-white dark:bg-theme-surface text-theme-red shadow-md' : 'text-gray-500 dark:text-theme-muted'}`}
-                    >
+                        className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${mobileTab === 'form' ? 'bg-white dark:bg-theme-surface text-theme-red shadow-md' : 'text-gray-500 dark:text-theme-muted'}`}>
                         Message
                     </button>
                 </div>

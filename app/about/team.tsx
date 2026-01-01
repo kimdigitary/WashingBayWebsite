@@ -2,9 +2,11 @@ import Reveal from "@/app/about/reveal";
 import React from "react";
 import {fetchData} from "@/queries/server";
 import {TeamT} from "@/app/about/types";
+import {PageProps} from "@/types";
 
-export default async function Team() {
-    const teams = await  fetchData<TeamT[]>('team')
+export default async function Team(props:PageProps) {
+    const searchParams = props.searchParams
+    const teams = await fetchData<TeamT[]>('team',searchParams)
     return (
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-24">
             <Reveal className="text-center mb-16">
@@ -16,7 +18,9 @@ export default async function Team() {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {teams.map((member, index) => (
-                    <Reveal key={index} delay={index * 100} className="group relative overflow-hidden rounded-2xl h-80">
+                    <Reveal key={index}
+                            delay={index * 100}
+                            className="group relative overflow-hidden rounded-2xl h-80">
                         <img
                             src={member.image}
                             alt={member.name}

@@ -4,9 +4,11 @@ import Reveal from "@/app/about/reveal";
 import {fetchData} from "@/queries/server";
 import {FaqT} from "@/app/faq/types";
 import AccordionItem from "@/app/faq/accordion-item";
+import {PageProps} from "@/types";
 
-export default async function Faqs() {
-    const faqs = await fetchData<FaqT[]>('faqs',undefined)
+export default async function Faqs(props: PageProps) {
+    const searchParams = props.searchParams
+    const faqs = await fetchData<FaqT[]>('faqs', searchParams)
     return (
         <div className="bg-white dark:bg-theme-black transition-colors duration-300 min-h-screen">
 
@@ -25,13 +27,16 @@ export default async function Faqs() {
             {/* 2. FAQ LIST */}
             <div className="max-w-4xl mx-auto px-6 pb-24 space-y-12">
                 {faqs.map((section, index) => (
-                    <Reveal key={index} delay={index * 100}>
+                    <Reveal key={index}
+                            delay={index * 100}>
                         <h3 className="text-xl font-bold font-display text-theme-red mb-6 border-b border-gray-200 dark:border-theme-accent pb-2">
                             {section.category}
                         </h3>
                         <div className="space-y-4">
                             {section.questions.map((item, idx) => (
-                                <AccordionItem key={idx} question={item.question} answer={item.answer} />
+                                <AccordionItem key={idx}
+                                               question={item.question}
+                                               answer={item.answer}/>
                             ))}
                         </div>
                     </Reveal>

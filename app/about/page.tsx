@@ -4,6 +4,7 @@ import Reveal from "@/app/about/reveal";
 import Team from "@/app/about/team";
 import MyLoader from "@/components/global/my-loader";
 
+
 export default function AboutPage() {
     return (
         <div className="bg-white dark:bg-theme-black transition-colors duration-300">
