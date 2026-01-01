@@ -1,0 +1,28 @@
+name: Deploy Updates
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Add server to known hosts
+        run: |
+          ssh-keyscan  -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Upload update_web.sh and run remotely
+        run: |
+          scp update_web.sh deploy@${{ secrets.SSH_HOST }}:~/update_web.sh
+          ssh  deploy@${{ secrets.SSH_HOST }} 'chmod +x ~/update_web.sh && ~/update_web.sh'

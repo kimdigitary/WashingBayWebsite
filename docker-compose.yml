@@ -1,0 +1,16 @@
+services:
+  next:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: portal
+    ports:
+      - "3000:3000"
+    restart: always
+    networks:
+      - washingbay_network
+
+networks:
+  washingbay_network:
+    external: true
