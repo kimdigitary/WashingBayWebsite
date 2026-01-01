@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 <i className="fas fa-shield-alt"></i>
                             </div>
                             <h2 className="font-display font-bold text-xl text-theme-text">
-                                DBS <span className="text-theme-red">PREMIER</span>
+                                DBS <span className="text-theme-red">PREMIUM CAR WASH</span>
                             </h2>
                         </div>
                         <p className="text-theme-muted text-sm leading-relaxed mb-6">
@@ -113,7 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                 {/* Copyright Section */}
                 <div className="border-t border-theme-accent pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-theme-muted">
-                    <p className="mb-4 md:mb-0">&copy; {new Date().getFullYear()} DBS Premier Car Wash. All rights reserved.</p>
+                    <p className="mb-4 md:mb-0">&copy; {new Date().getFullYear()} DBS Premium Car Wash. All rights reserved.</p>
                     <div className="flex space-x-6">
                         <Link href="/privacy" className="hover:text-theme-red transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-theme-red transition-colors">Terms of Service</Link>
