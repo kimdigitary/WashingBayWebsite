@@ -4,7 +4,11 @@ import {fetchData} from "@/queries/server";
 import {Service} from "@/app/services/types";
 import {PageProps} from "@/types";
 
-export default async function Services(props: PageProps) {
+interface Props {
+    props: PageProps
+}
+
+export default async function Services({props}: Props) {
     const searchParams = props.searchParams
     const data = await fetchData<Service[]>('services', searchParams)
     return (

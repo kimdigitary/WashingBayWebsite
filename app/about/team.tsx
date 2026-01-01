@@ -4,9 +4,13 @@ import {fetchData} from "@/queries/server";
 import {TeamT} from "@/app/about/types";
 import {PageProps} from "@/types";
 
-export default async function Team(props:PageProps) {
+interface Props {
+    props: PageProps
+}
+
+export default async function Team({props}: Props) {
     const searchParams = props.searchParams
-    const teams = await fetchData<TeamT[]>('team',searchParams)
+    const teams = await fetchData<TeamT[]>('team', searchParams)
     return (
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-24">
             <Reveal className="text-center mb-16">

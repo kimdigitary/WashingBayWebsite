@@ -3,7 +3,11 @@ import {fetchData} from "@/queries/server";
 import {Location} from "@/app/locations/types";
 import {PageProps} from "@/types";
 
-export default async function LocationsServer(props: PageProps) {
+interface Props {
+    props: PageProps
+}
+
+export default async function LocationsServer({props}: Props) {
     const searchParams = props.searchParams
     const locations = await fetchData<Location[]>('locations', searchParams)
     return (

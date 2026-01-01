@@ -3,9 +3,10 @@ import BookingModal from "@/components/BookingModal";
 import Reveal from "@/app/about/reveal";
 import Team from "@/app/about/team";
 import MyLoader from "@/components/global/my-loader";
+import {PageProps} from "@/types";
 
 
-export default function AboutPage() {
+export default function AboutPage(props: PageProps) {
     return (
         <div className="bg-white dark:bg-theme-black transition-colors duration-300">
 
@@ -135,7 +136,7 @@ export default function AboutPage() {
 
             {/* 4. MEET THE EXPERTS */}
             <Suspense fallback={<MyLoader/>}>
-                <Team/>
+                <Team props={props}/>
             </Suspense>
 
             {/* 5. CTA SECTION */}

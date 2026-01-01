@@ -6,7 +6,12 @@ import {FaqT} from "@/app/faq/types";
 import AccordionItem from "@/app/faq/accordion-item";
 import {PageProps} from "@/types";
 
-export default async function Faqs(props: PageProps) {
+
+interface Props {
+    props: PageProps
+}
+
+export default async function Faqs({props}: Props) {
     const searchParams = props.searchParams
     const faqs = await fetchData<FaqT[]>('faqs', searchParams)
     return (
