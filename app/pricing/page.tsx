@@ -39,28 +39,36 @@ const Reveal = ({ children, delay = 0, className = "" }: { children: React.React
 // --- PRICING DATA CONFIGURATION ---
 const pricingPlans = [
   {
-    name: "Express",
-    price: "$29",
-    unit: "/ wash",
-    features: ["Exterior Hand Wash", "Tire Dressing", "Window Cleaning"],
+    name: "Silver",
+    price: "20,000",
+    suvSurcharge: "5,000", // +5k for SUV
+    features: ["Exterior Body Wash", "Tire Dressing", "Window Cleaning", "Basic Mat Wash"],
     isPopular: false,
     delay: 0
   },
   {
-    name: "Deluxe",
-    price: "$59",
-    unit: "/ service",
-    features: ["Everything in Express", "Interior Vacuum", "Spray Wax", "Dash & Console Wipe"],
+    name: "Gold",
+    price: "40,000",
+    suvSurcharge: "5,000", // +5k for SUV
+    features: ["Everything in Silver", "Interior Vacuum", "Dashboard Polish", "Door Jamb Cleaning"],
     isPopular: true, // Triggers special styling
     delay: 100
   },
   {
-    name: "Signature",
-    price: "$149",
-    unit: "/ full detail",
-    features: ["Deep Interior Shampoo", "Clay Bar & Polish", "Engine Bay Clean", "Leather Conditioning"],
+    name: "Platinum",
+    price: "150,000",
+    suvSurcharge: "20,000", // +20k for SUV
+    features: ["Deep Interior Shampoo", "Engine Steam Wash", "Light Buffing", "Leather Conditioning"],
     isPopular: false,
     delay: 200
+  },
+  {
+    name: "Premium",
+    price: "250,000",
+    suvSurcharge: null, // No surcharge mentioned
+    features: ["Full Detailing", "Clay Bar Treatment", "Ceramic Spray Wax", "Headlight Restoration", "Odor Removal"],
+    isPopular: false,
+    delay: 300
   }
 ];
 
@@ -69,27 +77,28 @@ export default function PricingPage() {
     <div className="bg-white dark:bg-theme-black transition-colors duration-300 min-h-screen">
       
       {/* 1. HERO SECTION */}
-      <div className="pt-32 pb-16 px-6 md:px-8 max-w-7xl mx-auto w-full text-center">
+      <div className="pt-32 pb-12 px-6 md:px-8 max-w-7xl mx-auto w-full text-center">
         <Reveal>
           <h1 className="text-4xl md:text-6xl font-display font-black text-gray-900 dark:text-theme-text mb-4">
             Transparent <span className="text-theme-red">Pricing</span>
           </h1>
           <p className="text-gray-600 dark:text-theme-muted text-lg max-w-2xl mx-auto">
-            No hidden fees. Just pure shine. Choose the package that suits your vehicle's needs.
+            Professional care for your vehicle. Choose the package that suits your needs.
           </p>
         </Reveal>
       </div>
 
       {/* 2. PRICING CARDS */}
-      <div className="pb-24 px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
+      <div className="pb-16 px-6 md:px-8">
+        {/* Changed grid to support 4 columns on large screens (xl:grid-cols-4) and 2 on medium (md:grid-cols-2) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto items-start">
           
           {pricingPlans.map((plan, index) => (
-            <Reveal key={index} delay={plan.delay} className={`flex flex-col relative ${plan.isPopular ? 'z-10' : 'z-0'}`}>
+            <Reveal key={index} delay={plan.delay} className={`flex flex-col relative h-full ${plan.isPopular ? 'z-10' : 'z-0'}`}>
               
               <div 
                 className={`
-                  rounded-3xl p-10 flex flex-col transition-all duration-300
+                  rounded-3xl p-8 flex flex-col h-full transition-all duration-300
                   ${plan.isPopular 
                     ? 'bg-gray-50 dark:bg-gradient-to-b dark:from-theme-surface dark:to-theme-black border-2 border-theme-red shadow-[0_0_40px_rgba(220,38,38,0.15)] transform md:-translate-y-4' 
                     : 'bg-white dark:bg-theme-surface border border-gray-200 dark:border-theme-accent hover:border-theme-red/50 dark:hover:border-theme-red/50'
@@ -98,36 +107,48 @@ export default function PricingPage() {
               >
                 {/* Popular Badge */}
                 {plan.isPopular && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-theme-red text-white px-5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
-                    Most Popular
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-theme-red text-white px-5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg whitespace-nowrap">
+                    Best Value
                   </div>
                 )}
 
                 {/* Header */}
-                <h3 className={`font-bold uppercase tracking-widest text-xs mb-6 ${plan.isPopular ? 'text-theme-red' : 'text-gray-500 dark:text-theme-muted'}`}>
+                <h3 className={`font-bold uppercase tracking-widest text-xs mb-4 ${plan.isPopular ? 'text-theme-red' : 'text-gray-500 dark:text-theme-muted'}`}>
                   {plan.name}
                 </h3>
                 
                 {/* Price */}
-                <div className="flex items-baseline mb-8">
-                  <span className="text-5xl font-display font-bold text-gray-900 dark:text-theme-text">{plan.price}</span>
-                  <span className="text-gray-500 dark:text-theme-muted ml-2 text-lg">{plan.unit}</span>
+                <div className="mb-2">
+                  <div className="flex items-baseline">
+                    <span className="text-sm text-gray-500 dark:text-theme-muted mr-1">UGX</span>
+                    <span className="text-4xl font-display font-bold text-gray-900 dark:text-theme-text">{plan.price}</span>
+                  </div>
+                  {/* SUV Price Subtitle */}
+                  {plan.suvSurcharge ? (
+                     <div className="text-sm font-medium text-theme-red mt-1">
+                       + UGX {plan.suvSurcharge} for SUV
+                     </div>
+                  ) : (
+                    <div className="text-sm font-medium text-gray-400 dark:text-theme-muted mt-1 opacity-0 select-none">
+                      Fixed Price
+                    </div>
+                  )}
                 </div>
 
+                <div className="w-full h-px bg-gray-100 dark:bg-white/10 my-6"></div>
+
                 {/* Features */}
-                <ul className="space-y-4 mb-8 text-gray-600 dark:text-theme-muted flex-1">
+                <ul className="space-y-4 mb-8 text-sm text-gray-600 dark:text-theme-muted flex-1">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-center">
-                      <i className="fas fa-check text-theme-red mr-3"></i> {feature}
+                    <li key={i} className="flex items-start">
+                      <i className="fas fa-check text-theme-red mr-3 mt-1"></i> 
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Action Button */}
-                <div className="w-full">
-                    {/* We wrap the BookingModal to style the trigger button exactly like the design.
-                       If plan is popular => Red Background. If not => Bordered.
-                    */}
+                <div className="w-full mt-auto">
                     <div className={`
                         w-full rounded-xl font-bold uppercase tracking-widest text-xs transition-colors cursor-pointer text-center py-4
                         ${plan.isPopular
@@ -144,6 +165,20 @@ export default function PricingPage() {
           ))}
 
         </div>
+
+        {/* 3. DISCLAIMER SECTION */}
+        <Reveal delay={400}>
+          <div className="max-w-7xl mx-auto mt-12 p-6 rounded-2xl bg-gray-50 dark:bg-theme-surface border border-gray-200 dark:border-theme-accent flex items-start gap-4">
+            <i className="fas fa-info-circle text-theme-red text-xl mt-1"></i>
+            <div>
+              <h4 className="font-bold text-gray-900 dark:text-theme-text mb-1">Vehicle Sizing Policy</h4>
+              <p className="text-sm text-gray-600 dark:text-theme-muted">
+                Please note: Any vehicle with a height exceeding <span className="font-bold text-gray-900 dark:text-white">160cm</span> is classified as an <span className="font-bold text-gray-900 dark:text-white">SUV</span> and will be charged the SUV rate indicated above.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+
       </div>
       
     </div>
