@@ -12,10 +12,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV NEXT_PUBLIC_BACKEND_API_URL=https://api.straightahead.ug
+ENV NEXT_PUBLIC_BACKEND_API_URL=https://api.dbspremiumcarwash.com
 # During build, 'nginx' will resolve to the host gateway thanks to extra_hosts
 #ENV BACKEND_API_URL=http://nginx
-ENV BACKEND_API_URL=https://api.straightahead.ug
+ENV BACKEND_API_URL=https://api.dbspremiumcarwash.com
 
 RUN bun run build
 
