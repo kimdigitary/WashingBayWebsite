@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Hook to check current active page
+import Image from "next/image";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -55,8 +56,9 @@ export default function Header() {
     <header className="h-20 bg-theme-surface/90 backdrop-blur-md border-b border-theme-accent flex items-center justify-between px-4 md:px-6 z-50 transition-colors duration-300 fixed top-0 w-full">
       {/* Logo */}
       <Link href="/" className="flex items-center cursor-pointer group shrink-0">
-        <div className="text-theme-red text-2xl md:text-3xl mr-2 md:mr-3 transform group-hover:rotate-12 transition-transform duration-300">
-          <i className="fas fa-shield-alt"></i>
+        <div className="text-theme-red text-2xl md:text-3xl mr-2 md:mr-3 transform group-hover:rotate-12 transition-transform duration-300 relative w-10 h-10">
+          {/*<i className="fas fa-shield-alt"></i>*/}
+            <Image src={'/logo.png'} alt={'logo'} fill className="object-contain" />
         </div>
         <h1 className="font-display text-xl md:text-2xl font-extrabold tracking-tight text-theme-text">
           DBS <span className="text-theme-red">PREMIUM CAR WASH</span>

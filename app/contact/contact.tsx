@@ -67,7 +67,7 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-gray-900 dark:text-theme-text text-lg">Call Us</h4>
-                                <p className="text-gray-500 dark:text-theme-muted text-sm">(256) 700-123456</p>
+                                <p className="text-gray-500 dark:text-theme-muted text-sm">+256 748151515</p>
                             </div>
                         </div>
 
