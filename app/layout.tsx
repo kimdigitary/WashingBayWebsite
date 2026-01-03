@@ -56,7 +56,6 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
 
         <Header/>
 
-
         <main className="flex-1 mt-20 relative overflow-hidden bg-theme-black transition-colors duration-300">
             {children}
         </main>
