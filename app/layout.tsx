@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/header";
 import FloatingButtons from "@/components/FloatingButtons";
 import Image from "next/image";
+import {env} from "@/env";
 
 const manrope = Manrope({subsets: ["latin"], variable: "--font-manrope"});
 const outfit = Outfit({subsets: ["latin"], variable: "--font-outfit"});
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "DBS Premier | Home",
         description: "Experience the deepest black and the brightest shine.",
-        url: "https://dbspremier.com",
+        url: `${env.SITE_URL}`,
         siteName: "DBS Premier",
         images: [
             {
@@ -69,7 +70,10 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                         <div className="flex items-center mb-4">
                             <div className="text-theme-red text-2xl mr-2 relative w-10 h-10">
                                 {/*<i className="fas fa-shield-alt"></i>*/}
-                                <Image src={'/logo.png'} alt={'logo'} fill className="object-contain" />
+                                <Image src={'/logo.png'}
+                                       alt={'logo'}
+                                       fill
+                                       className="object-contain"/>
                             </div>
                             <h2 className="font-display font-bold text-xl text-theme-text">
                                 DBS <span className="text-theme-red">PREMIUM CAR WASH</span>
