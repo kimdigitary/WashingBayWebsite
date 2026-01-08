@@ -1,0 +1,3 @@
+  <Suspense fallback={<MyLoader/>}>
+            <Faqs/>
+        </Suspense>

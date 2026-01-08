@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p 7589 -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Upload and run deploy script
+        run: |
+          scp -P 7589 update_web.sh deploy@${{ secrets.SSH_HOST }}:/home/deploy/update_web.sh
+          ssh -p 7589 deploy@${{ secrets.SSH_HOST }} << 'EOF'
+            chmod +x /home/deploy/update_web.sh
+            /home/deploy/update_web.sh
+          EOF
