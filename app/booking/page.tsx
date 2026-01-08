@@ -29,6 +29,7 @@ const washPackages = [
     suvSurcharge: 5000,
     features: ["Exterior Body Wash", "Tyre Shine", "Body Shampoo", "Power Jet"],
   },
+
   {
     id: "gold",
     name: "Gold Wash",
