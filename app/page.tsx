@@ -134,9 +134,14 @@ export default function Home() {
                 <div className="glass-panel p-8 rounded-3xl border border-white/10 relative overflow-hidden group">
                    <h3 className="text-2xl font-bold text-white mb-4">Ready for a transformation?</h3>
                    <p className="text-gray-300 mb-8">Book your slot today and experience the DBS difference. Limited slots available daily for quality control.</p>
-                   <button className="block w-full py-4 bg-theme-red text-white text-center rounded-xl font-bold uppercase tracking-widest hover:bg-theme-darkRed transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)]">
-                       Book Appointment Now
-                   </button>
+                   {/*<button className="block w-full py-4 bg-theme-red text-white text-center rounded-xl font-bold uppercase tracking-widest hover:bg-theme-darkRed transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)]">*/}
+                   {/*    Book Appointment Now*/}
+                   {/*</button>*/}
+                    <Link href="/booking" className="block">
+                        <button className="block w-full hover:cursor-pointer py-4 bg-theme-red text-white text-center rounded-xl font-bold uppercase tracking-widest hover:bg-theme-darkRed transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)]">
+                            Book Appointment Now
+                        </button>
+                    </Link>
                 </div>
              </div>
           </div>

@@ -58,8 +58,10 @@ export default async function Services({props}: Props) {
                                         {service.title}
                                     </h3>
 
-                                    <p className="text-gray-600 dark:text-theme-muted text-sm leading-relaxed mb-6 flex-1">
-                                        {service.description}
+                                    <p
+                                        className="text-gray-600 dark:text-theme-muted text-sm leading-relaxed mb-6 flex-1"
+                                        dangerouslySetInnerHTML={{ __html: service.description }}
+                                    >
                                     </p>
 
                                     {/* Read More Button - NOW LINKED CORRECTLY */}
