@@ -6,15 +6,36 @@ export interface PageProps {
     searchParams: Promise<SearchParams>;
     params: Promise<{ id: string; }>;
 }
+
+
+export interface ServicePackageResponse {
+    currency: string
+    disclaimer: string
+    packages: ServicePackage[]
+}
+
 export interface ServicePackage {
-    id: string
+    id: number
     name: string
     description: string
-    formatted_base_price: string
-    formatted_suv_surcharge: string
     base_price: number
+    base_price_night: number
     suv_surcharge: number
+    formatted_base_price: string
+    formatted_base_price_night: string
+    formatted_suv_surcharge: string
     features: string[]
     is_popular: boolean
     active: boolean
+}
+
+export interface ExtraServiceResponse {
+    success: boolean
+    extras: ExtraService[]
+}
+
+export interface ExtraService {
+    id: number
+    name: string
+    price: number
 }
