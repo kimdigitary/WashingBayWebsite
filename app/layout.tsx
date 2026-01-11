@@ -7,6 +7,8 @@ import FloatingButtons from "@/components/FloatingButtons";
 import Image from "next/image";
 import {env} from "@/env";
 import {CustomToastProvider} from "@/components/ui/custom-toast";
+import {Suspense} from "react";
+import MyLoader from "@/components/global/my-loader";
 
 const manrope = Manrope({subsets: ["latin"], variable: "--font-manrope"});
 const outfit = Outfit({subsets: ["latin"], variable: "--font-outfit"});
@@ -60,7 +62,9 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
 
         <CustomToastProvider>
             <main className="flex-1 mt-20 relative overflow-hidden bg-theme-black transition-colors duration-300">
-                {children}
+                <Suspense fallback={<MyLoader/>}>
+                    {children}
+                </Suspense>
             </main>
         </CustomToastProvider>
 
