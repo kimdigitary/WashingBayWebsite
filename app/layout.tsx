@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import FloatingButtons from "@/components/FloatingButtons";
 import Image from "next/image";
 import {env} from "@/env";
+import {CustomToastProvider} from "@/components/ui/custom-toast";
 
 const manrope = Manrope({subsets: ["latin"], variable: "--font-manrope"});
 const outfit = Outfit({subsets: ["latin"], variable: "--font-outfit"});
@@ -57,9 +58,11 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
 
         <Header/>
 
-        <main className="flex-1 mt-20 relative overflow-hidden bg-theme-black transition-colors duration-300">
-            {children}
-        </main>
+        <CustomToastProvider>
+            <main className="flex-1 mt-20 relative overflow-hidden bg-theme-black transition-colors duration-300">
+                {children}
+            </main>
+        </CustomToastProvider>
 
         <footer className="bg-theme-surface border-t border-theme-accent pt-16 pb-8 transition-colors duration-300">
             <div className="max-w-8xl mx-auto px-6 md:px-8">
