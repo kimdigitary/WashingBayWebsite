@@ -26,6 +26,7 @@ export interface ServicePackage {
     formatted_suv_surcharge: string
     features: string[]
     is_popular: boolean
+    is_premium: boolean
     active: boolean
 }
 

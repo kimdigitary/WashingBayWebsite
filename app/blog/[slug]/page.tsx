@@ -108,7 +108,7 @@ export default async function TheArtOfPaintPost(props: PageProps) {
                 </article>
 
                 {/* RIGHT COLUMN: SIDEBAR */}
-                <aside className="space-y-8 hidden">
+                <aside className="space-y-8">
                     <Reveal delay={200}>
                         {/* About Box */}
                         <div className="bg-gray-50 dark:bg-theme-surface p-8 rounded-2xl border border-gray-200 dark:border-theme-accent shadow-sm">
