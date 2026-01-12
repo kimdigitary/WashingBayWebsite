@@ -3,11 +3,12 @@
 import React, {useEffect, useState} from "react";
 import {useSearchParams} from "next/navigation";
 import {AlertCircle, Calendar, Car, Check, ChevronRight, Clock, CreditCard, Download, Info, Mail, MapPin, Moon, Phone, Sun, User,} from "lucide-react";
-import {ExtraService, ServicePackage} from "@/types";
+import {BookingResponse, ExtraService, ServicePackage} from "@/types";
 import Link from "next/link";
 import {Location} from "@/app/locations/types";
 import {saveBooking} from "@/actions";
 import {useFormAction} from "@/hooks/use-form-hook";
+import {formatLocalForBackend} from "@/utils/utils";
 
 interface Props {
     packages: ServicePackage[];
@@ -174,9 +175,13 @@ export default function Booking({packages, extras, currency, locations}: Props) 
         if (validateStep(step)) setStep((prev) => prev + 1);
     };
 
-    const {isPending, onSubmit} = useFormAction<any>(saveBooking, (state) => {
+    const [bookingDate, setBookingDate] = useState('');
+
+    const {isPending, onSubmit} = useFormAction<any, BookingResponse>(saveBooking, (state) => {
         if (state.success) {
             setIsSuccess(true)
+            // setReceiptId(state.data.booking.date)
+            setBookingDate(state.data.booking.date)
         }
     });
 
@@ -255,25 +260,25 @@ export default function Booking({packages, extras, currency, locations}: Props) 
                     <p className="text-gray-500 mb-8">
                         Your slot for{" "}
                         <span className="text-theme-red font-bold">
-              {new Date(date).toLocaleString()}
-            </span>{" "}
+                            {bookingDate}
+                        </span>{" "}
                         has been reserved at{" "}
                         <span className="font-bold text-gray-900 dark:text-white">
                 {locations.find((l) => `${l.id}` === location)?.name}
             </span>.
                     </p>
                     <div className="bg-gray-50 dark:bg-zinc-900 p-4 rounded-xl mb-6 flex justify-between items-center">
-                        <span className="text-gray-500">Total Paid</span>
+                        <span className="text-gray-500">Total: </span>
                         <span className="text-xl font-bold text-theme-red">
               {currency} {grandTotal.toLocaleString()}
             </span>
                     </div>
                     <div className="flex gap-3">
-                        <button
-                            onClick={() => window.print()}
-                            className="flex-1 py-3 border border-gray-200 dark:border-zinc-600 rounded-xl font-bold flex items-center justify-center gap-2 dark:text-white">
-                            <Download className="w-4 h-4"/> Receipt
-                        </button>
+                        {/*<button*/}
+                        {/*    onClick={() => window.print()}*/}
+                        {/*    className="flex-1 py-3 border border-gray-200 dark:border-zinc-600 rounded-xl font-bold flex items-center justify-center gap-2 dark:text-white">*/}
+                        {/*    <Download className="w-4 h-4"/> Receipt*/}
+                        {/*</button>*/}
                         <Link
                             href="/"
                             className="flex-1 py-3 bg-theme-red text-white rounded-xl font-bold flex items-center justify-center">
@@ -370,7 +375,7 @@ export default function Booking({packages, extras, currency, locations}: Props) 
                                         <input
                                             type="datetime-local"
                                             // Format the Date object back to the string format required by the input
-                                            value={ new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
+                                            value={new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
                                             onChange={handleDateChange}
                                             className={`w-full bg-white dark:bg-zinc-800 border rounded-xl p-4 pl-12 focus:border-theme-red focus:ring-0 outline-none dark:text-white ${
                                                 errors.date
@@ -712,6 +717,7 @@ export default function Booking({packages, extras, currency, locations}: Props) 
                                     <div className="relative">
                                         <input
                                             type="tel"
+                                            name={'phone'}
                                             placeholder="07..."
                                             value={customerDetails.phone}
                                             onChange={(e) =>

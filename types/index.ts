@@ -84,3 +84,16 @@ export interface ContactLocation {
     zoom_level: number
     marker_label: string
 }
+export interface BookingResponse {
+    success: boolean
+    booking_ref: string
+    message: string
+    booking: Booking
+}
+
+export interface Booking {
+    id: number
+    date: string
+    time: string
+    status: string
+}

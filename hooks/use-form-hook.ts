@@ -4,7 +4,7 @@ import {formatLocalForBackend} from "@/utils/utils";
 import {ActionState} from "@/mutations";
 import {useCustomToast} from "@/components/ui/custom-toast";
 
-export function useFormAction<T extends object, R = unknown>(
+export function useFormAction<T extends object, R>(
     actionFn: (prev: ActionState<R>, formData: FormData) => Promise<ActionState<R>>,
     onSuccess?: (state: ActionState<R>) => void
 ) {
@@ -36,16 +36,24 @@ export function useFormAction<T extends object, R = unknown>(
     useEffect(() => {
         if (state !== lastProcessedState.current && !isPending && state.message) {
             if (state.success) {
-                toast('Success',state.message,'success')
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                //@ts-expect-error
+                if (state.data?.message) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    //@ts-expect-error
+                    toast('Success', state.data?.message, 'success')
+                } else {
+                    toast('Success', state.message, 'success')
+                }
                 onSuccess?.(state);
             } else if (state.message) {
-                toast('Error',state.message,'error')
+                toast('Error', state.message, 'error')
             }
             lastProcessedState.current = state;
         }
     }, [state, isPending, onSuccess]);
 
-    return { state, isPending, onSubmit };
+    return {state, isPending, onSubmit};
 }
 
 export function useDeleteAction<R = unknown>(
@@ -55,10 +63,10 @@ export function useDeleteAction<R = unknown>(
     const initialState: ActionState<R> = {
         success: false,
         message: "",
-        data: undefined as unknown as R
+        data: undefined as R
     };
 
-    const { toast } = useCustomToast();
+    const {toast} = useCustomToast();
     const [state, action, isPending] = useActionState(actionFn, initialState);
 
     // Ref to track the state we have already processed to prevent duplicate toasts
@@ -74,17 +82,17 @@ export function useDeleteAction<R = unknown>(
         // Only trigger effects if the state is new, we aren't loading, and there's a message
         if (state !== lastProcessedState.current && !isPending && state.message) {
             if (state.success) {
-                toast('Success',state.message,'success')
+                toast('Success', state.message, 'success')
                 onSuccess?.(state);
             } else {
-                toast('Error',state.message,'error')
+                toast('Error', state.message, 'error')
             }
             // Mark this specific state object as processed
             lastProcessedState.current = state;
         }
     }, [state, isPending, onSuccess, toast]);
 
-    return { state, isPending, onDeleteAction };
+    return {state, isPending, onDeleteAction};
 }
 
 export function useServerAction<T, R = unknown>(
@@ -94,10 +102,10 @@ export function useServerAction<T, R = unknown>(
     const initialState: ActionState<R> = {
         success: false,
         message: "",
-        data: undefined as unknown as R
+        data: undefined as R
     };
 
-    const { toast } = useCustomToast();
+    const {toast} = useCustomToast();
     const [state, action, isPending] = useActionState(actionFn, initialState);
     const lastProcessedState = useRef<ActionState<R> | null>(null);
 
@@ -109,20 +117,20 @@ export function useServerAction<T, R = unknown>(
     useEffect(() => {
         if (state !== lastProcessedState.current && !isPending && state.message) {
             if (state.success) {
-                toast('Success',state.message,'success')
+                toast('Success', state.message, 'success')
                 onSuccess?.(state);
             } else {
-                toast('Error',state.message,'error')
+                toast('Error', state.message, 'error')
             }
             lastProcessedState.current = state;
         }
     }, [state, isPending, onSuccess, toast]);
 
-    return { state, isPending, onAction };
+    return {state, isPending, onAction};
 }
 
 function serializeValue(value: unknown): string | Blob {
-    if (value instanceof Date ) {
+    if (value instanceof Date) {
         return formatLocalForBackend(value);
     }
 

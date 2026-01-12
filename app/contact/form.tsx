@@ -24,7 +24,7 @@ export default function Form() {
         resolver: zodResolver(contactSchema)
     });
 
-    const {isPending, onSubmit} = useFormAction<ContactFormValues>(saveContact, (state) => {
+    const {isPending, onSubmit} = useFormAction<ContactFormValues,unknown>(saveContact, (state) => {
         if (state.success) {
             reset();
         }
