@@ -4,7 +4,7 @@ export interface SearchParams {
 
 export interface PageProps {
     searchParams: Promise<SearchParams>;
-    params: Promise<{ id: string; }>;
+    params: Promise<{ id: string; slug: string; }>;
 }
 
 
@@ -39,6 +39,7 @@ export interface ExtraService {
     name: string
     price: number
 }
+
 export interface ApiResponse<T> {
     data: T[]
     meta: Meta
