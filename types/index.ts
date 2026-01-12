@@ -58,3 +58,28 @@ export interface Meta {
     total: number
     total_amount: number
 }
+
+export interface ContactT {
+    hero: Hero
+    contact_details: ContactDetails
+    locations: ContactLocation[]
+}
+
+export interface Hero {
+    title: string
+    subtitle: string
+    background_image: string
+}
+
+export interface ContactDetails {
+    support_email: string
+    booking_phone: string
+    office_address: string
+}
+
+export interface ContactLocation {
+    latitude: number
+    longitude: number
+    zoom_level: number
+    marker_label: string
+}

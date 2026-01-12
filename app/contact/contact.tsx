@@ -1,8 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useState} from "react";
+import {ContactT} from "@/types";
+import Form from "@/app/contact/form";
 
-export default function Contact() {
+interface Props{
+    contact: ContactT
+}
+export default function Contact({contact}: Props) {
     const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
     // State to toggle between Info and Form on Mobile
     const [mobileTab, setMobileTab] = useState<"info" | "form">("form");
@@ -67,7 +72,7 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-gray-900 dark:text-theme-text text-lg">Call Us</h4>
-                                <p className="text-gray-500 dark:text-theme-muted text-sm">+256 748151515</p>
+                                <p className="text-gray-500 dark:text-theme-muted text-sm">{contact.contact_details.booking_phone}</p>
                             </div>
                         </div>
 
@@ -77,7 +82,7 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-gray-900 dark:text-theme-text text-lg">Email Us</h4>
-                                <p className="text-gray-500 dark:text-theme-muted text-sm">info@dbspremier.ug</p>
+                                <p className="text-gray-500 dark:text-theme-muted text-sm">{contact.contact_details.support_email}</p>
                             </div>
                         </div>
 
@@ -87,17 +92,10 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-gray-900 dark:text-theme-text text-lg">Visit Us</h4>
-                                <p className="text-gray-500 dark:text-theme-muted text-sm">Acacia Avenue, Kololo</p>
+                                <p className="text-gray-500 dark:text-theme-muted text-sm">{contact.contact_details.office_address}</p>
                             </div>
                         </div>
                     </div>
-
-                    {/* Socials
-            <div className="flex gap-4 mt-10">
-                <a href="#" className="w-10 h-10 rounded-full border border-gray-300 dark:border-theme-accent flex items-center justify-center text-gray-500 dark:text-theme-muted hover:bg-theme-red hover:text-white hover:border-theme-red transition-all"><i className="fab fa-instagram"></i></a>
-                <a href="#" className="w-10 h-10 rounded-full border border-gray-300 dark:border-theme-accent flex items-center justify-center text-gray-500 dark:text-theme-muted hover:bg-theme-red hover:text-white hover:border-theme-red transition-all"><i className="fab fa-twitter"></i></a>
-                <a href="#" className="w-10 h-10 rounded-full border border-gray-300 dark:border-theme-accent flex items-center justify-center text-gray-500 dark:text-theme-muted hover:bg-theme-red hover:text-white hover:border-theme-red transition-all"><i className="fab fa-whatsapp"></i></a>
-            </div> */}
                 </div>
             </div>
 
@@ -117,37 +115,7 @@ export default function Contact() {
 
                         <h3 className="text-2xl font-display font-bold text-gray-900 dark:text-theme-text mb-6">Send a Message</h3>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <input type="text" required className="w-full bg-gray-50 dark:bg-black/40 border border-gray-300 dark:border-theme-accent text-gray-900 dark:text-theme-text rounded-xl p-3 text-sm focus:border-theme-red focus:ring-1 focus:ring-theme-red outline-none transition-all" placeholder="First Name" />
-                                </div>
-                                <div>
-                                    <input type="text" required className="w-full bg-gray-50 dark:bg-black/40 border border-gray-300 dark:border-theme-accent text-gray-900 dark:text-theme-text rounded-xl p-3 text-sm focus:border-theme-red focus:ring-1 focus:ring-theme-red outline-none transition-all" placeholder="Last Name" />
-                                </div>
-                            </div>
-
-                            <div>
-                                <input type="email" required className="w-full bg-gray-50 dark:bg-black/40 border border-gray-300 dark:border-theme-accent text-gray-900 dark:text-theme-text rounded-xl p-3 text-sm focus:border-theme-red focus:ring-1 focus:ring-theme-red outline-none transition-all" placeholder="Email Address" />
-                            </div>
-
-                            <div>
-                                <textarea rows={4} required className="w-full bg-gray-50 dark:bg-black/40 border border-gray-300 dark:border-theme-accent text-gray-900 dark:text-theme-text rounded-xl p-3 text-sm focus:border-theme-red focus:ring-1 focus:ring-theme-red outline-none transition-all resize-none" placeholder="Your Message..."></textarea>
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={formStatus === 'submitting' || formStatus === 'success'}
-                                className={`
-                              w-full py-3.5 rounded-xl font-bold shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 text-sm uppercase tracking-wider
-                              ${formStatus === 'success' ? 'bg-green-600 text-white' : 'bg-theme-red text-white hover:bg-theme-darkRed'}
-                          `}
-                            >
-                                {formStatus === 'idle' && <>Send Message <i className="fas fa-paper-plane"></i></>}
-                                {formStatus === 'submitting' && <><i className="fas fa-spinner fa-spin"></i> Sending...</>}
-                                {formStatus === 'success' && <><i className="fas fa-check"></i> Sent!</>}
-                            </button>
-                        </form>
+                       <Form/>
                     </div>
                 </div>
             </div>
