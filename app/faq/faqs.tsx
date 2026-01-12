@@ -4,7 +4,7 @@ import Reveal from "@/app/about/reveal";
 import {fetchData} from "@/queries/server";
 import {FaqT} from "@/app/faq/types";
 import AccordionItem from "@/app/faq/accordion-item";
-import {PageProps} from "@/types";
+import {ApiResponse, PageProps} from "@/types";
 
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 export default async function Faqs({props}: Props) {
     const searchParams = props.searchParams
-    const faqs = await fetchData<FaqT[]>('faqs', searchParams)
+    const {data:faqs} = await fetchData<ApiResponse<FaqT>>('faqs', searchParams)
     return (
         <div className="bg-white dark:bg-theme-black transition-colors duration-300 min-h-screen">
 

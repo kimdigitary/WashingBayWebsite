@@ -1,15 +1,15 @@
 import {fetchData} from "@/queries/server";
-import {ExtraServiceResponse, ServicePackageResponse} from "@/types";
+import {ApiResponse, ExtraService, ServicePackage} from "@/types";
 import Booking from "@/app/booking/booking";
 import {Location} from "@/app/locations/types";
 
 
 export default async function BookingServer() {
-    const servicePackageResponse = await fetchData<ServicePackageResponse>('packages')
-    const extras = await fetchData<ExtraServiceResponse>('extras')
-    const locations = await fetchData<Location[]>('locations')
-    return <Booking packages={servicePackageResponse.packages}
-                    extras={extras.extras}
-                    currency={servicePackageResponse.currency}
+    const {data:packages} = await fetchData<ApiResponse<ServicePackage>>('packages')
+    const {data:extras} = await fetchData<ApiResponse<ExtraService>>('extras')
+    const {data:locations} = await fetchData<ApiResponse<Location>>('locations')
+    return <Booking packages={packages}
+                    extras={extras}
+                    currency={'UGX'}
                     locations={locations}/>
 }

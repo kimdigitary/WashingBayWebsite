@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSearchParams} from "next/navigation";
 import {AlertCircle, Calendar, Car, Check, ChevronRight, Clock, CreditCard, Download, Info, Mail, MapPin, Moon, Phone, Sun, User,} from "lucide-react";
 import {ExtraService, ServicePackage} from "@/types";
@@ -193,6 +193,7 @@ export default function Booking({packages, extras, currency, locations}: Props) 
         if (!validateStep(3)) return;
         setIsProcessing(true);
         const pkg = packages.find(p => p.id === selectedPkgId)
+        const finalPrice = isNightRate ? pkg?.base_price_night : pkg?.base_price;
         const payload = {
             location_id: location,
             date,
@@ -206,7 +207,7 @@ export default function Booking({packages, extras, currency, locations}: Props) 
             service: {
                 package_id: selectedPkgId,
                 plan_name: pkg?.name,
-                price: pkg?.base_price,
+                price: finalPrice,
                 extra_ids: selectedExtras.map((e) => e.id),
             }
         };

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Reveal from "@/app/services/reveal";
 import {fetchData} from "@/queries/server";
 import {Service} from "@/app/services/types";
-import {PageProps} from "@/types";
+import {ApiResponse, PageProps} from "@/types";
 
 interface Props {
     props: PageProps
@@ -10,7 +10,7 @@ interface Props {
 
 export default async function Services({props}: Props) {
     const searchParams = props.searchParams
-    const data = await fetchData<Service[]>('services', searchParams)
+    const {data} = await fetchData<ApiResponse<Service>>('services', searchParams)
     return (
         <div className="bg-white dark:bg-theme-black transition-colors duration-300">
 

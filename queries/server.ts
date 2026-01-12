@@ -2,6 +2,7 @@
 import {SearchParams} from "@/types";
 import axios from "axios";
 import {nonAuthAxios} from "@/actions/client-axios";
+import {env} from "@/env";
 
 export async function fetchData<T>(
     endpoint: string,
@@ -13,10 +14,13 @@ export async function fetchData<T>(
         const {data} = await axiosClient.get<T>(endpoint, {params});
         return data;
     } catch (err) {
+        if (env.ENV === "local") {
+            console.error("Laravel error response:", err);
+        }
         if (axios.isAxiosError(err)) {
             console.error("Laravel error response:", err);
             console.error("Laravel error response:", err.response?.data);
-            throw new Error(JSON.stringify(err.response?.data));
+            throw new Error(JSON.stringify(err?.response?.data));
         }
         throw err;
     }

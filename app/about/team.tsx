@@ -2,7 +2,7 @@ import Reveal from "@/app/about/reveal";
 import React from "react";
 import {fetchData} from "@/queries/server";
 import {TeamT} from "@/app/about/types";
-import {PageProps} from "@/types";
+import {ApiResponse, PageProps} from "@/types";
 
 interface Props {
     props: PageProps
@@ -10,7 +10,7 @@ interface Props {
 
 export default async function Team({props}: Props) {
     const searchParams = props.searchParams
-    const teams = await fetchData<TeamT[]>('team', searchParams)
+    const {data:teams} = await fetchData<ApiResponse<TeamT>>('team', searchParams)
     return (
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-24">
             <Reveal className="text-center mb-16">
