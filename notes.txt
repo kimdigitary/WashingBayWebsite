@@ -1,3 +1,13 @@
   <Suspense fallback={<MyLoader/>}>
             <Faqs/>
         </Suspense>
+
+
+Incomplete
+1. About us.
+2. Galley
+3. Home page on service available.
+4. Pricing.
+5. Blog has an error
+6. Contact
+7. Booking
