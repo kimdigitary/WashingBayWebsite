@@ -1,4 +1,4 @@
-import type {Metadata} from "next";
+import type {Metadata, Viewport} from "next";
 import {Manrope, Outfit} from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
@@ -13,17 +13,37 @@ import MyLoader from "@/components/global/my-loader";
 const manrope = Manrope({subsets: ["latin"], variable: "--font-manrope"});
 const outfit = Outfit({subsets: ["latin"], variable: "--font-outfit"});
 
+export const viewport: Viewport = {
+    themeColor: "#000000",
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+};
+
 export const metadata: Metadata = {
-    title: "DBS Premier | Home",
-    description: "Experience the deepest black and the brightest shine.",
+    metadataBase: new URL(env.SITE_URL),
+    title: {
+        default: "DBS Premier | Premium Car Wash Services",
+        template: "%s | DBS Premier",
+    },
+    description: "Experience the deepest black and the brightest shine with DBS Premier. Premium automotive care, ceramic coating, paint correction, and detailing services in Kampala, Uganda.",
+    keywords: ["Car Wash", "Auto Detailing", "Ceramic Coating", "Paint Correction", "Kampala", "Uganda", "Premium Car Care", "DBS Premier", "Interior Detail", "Express Wash"],
+    authors: [{ name: "DBS Premier" }],
+    creator: "DBS Premier",
+    publisher: "DBS Premier",
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+    },
     icons: {
         icon: "/favicon.png",
         apple: "/logo.png",
     },
     openGraph: {
-        title: "DBS Premier | Home",
-        description: "Experience the deepest black and the brightest shine.",
-        url: `${env.SITE_URL}`,
+        title: "DBS Premier | Premium Car Wash Services",
+        description: "Experience the deepest black and the brightest shine. Premium automotive care in Kampala.",
+        url: env.SITE_URL,
         siteName: "DBS Premier",
         images: [
             {
@@ -38,9 +58,24 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "DBS Premier | Home",
-        description: "Experience the deepest black and the brightest shine.",
+        title: "DBS Premier | Premium Car Wash Services",
+        description: "Experience the deepest black and the brightest shine. Premium automotive care in Kampala.",
         images: ["/logo.png"],
+        creator: "@dbspremicarwash",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+        },
+    },
+    alternates: {
+        canonical: "/",
     },
 };
 
